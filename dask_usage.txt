@@ -1,0 +1,9 @@
+from dask.distributed import Client
+client = Client("tcp://100.71.92.171:8786")
+f=client.submit(lambda: 1+1)
+
+result=f.result()
+
+from graphviper.dask.client import distributed_client
+
+viper_client = distributed_client("tcp://100.71.92.171:8786")
