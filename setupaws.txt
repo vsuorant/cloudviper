@@ -15,14 +15,14 @@ Suggestions:
 
 # Add workers instancegroup
 
-kops create instancegroup workers
+# kops create instancegroup workers
 
 # Update the instance group configuration to have as many nodes as you would like (for example 1 node, 2 workers)
 
 # Load the configuration from the .cfg files
 
 kops replace -f kops_master.cfg
-kops replace -f kops_workers.cfg
+kops create -f kops_workers.cfg
 kops replace -f kops_nodes.cfg
 
 # Update cluster
@@ -34,9 +34,9 @@ kops rolling-update cluster
 # Deploy the Dask helm chart
 
 helm repo add dask https://helm.dask.org/
-#helm install dask dask/dask --version 2024.1.1 -f config.yaml
+helm install dask dask/dask --version 2024.1.1 -f config.yaml
 # Install from a local clone
- helm install dask helm-chart/dask  -f helm-chart/dask/values.yaml
+# helm install dask helm-chart/dask  -f helm-chart/dask/values.yaml
 
 # Run the following to get the Helm instance information
 
@@ -73,6 +73,7 @@ kubectl port-forward --namespace default svc/dask-scheduler  8787:80 &
 
 kubectl get deployment --all-namespaces
 
-# Get the external LoadBalancer IP for the dashboard
-
+# Get the external LoadBalancer IP for the dashboard and jupyter
+ 
 kubectl get svc --namespace default dask-scheduler
+kubectl get svc --namespace default dask-jupyter

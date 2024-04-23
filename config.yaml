@@ -2,6 +2,7 @@
 
 scheduler:
   name: scheduler  # Dask scheduler name.
+  enabled: true 
   image:
     repository: "daskdev/dask"
     tag: 2024.2.1
@@ -18,7 +19,6 @@ scheduler:
     requests:
         cpu: 2000m
         memory: 8G
-  serviceType: "LoadBalancer"
   env:
     - name: OMP_NUM_THREADS
       value: "1"
@@ -34,6 +34,7 @@ scheduler:
       value: fsspec==2024.2.0 s3fs==2024.2.0
     - name: EXTRA_PIP_PACKAGES
       value: graphviper astroviper
+  serviceType: "LoadBalancer"
   servicePort: 8786
   tolerations: []
   affinity:
@@ -51,7 +52,7 @@ webUI:
   name: webui  # Dask webui name.
   servicePort: 80 # webui service internal port.
   ingress:
-    enabled: false  # Enable ingress.
+    enabled: true  # Enable ingress.
     tls: false  # Ingress should use TLS.
     # secretName: dask-scheduler-tls
     hostname: dask-ui.example.com  # Ingress hostname.
@@ -66,7 +67,7 @@ worker:
     tag: 2024.2.1
     pullPolicy: IfNotPresent
     pullSecrets:  # Container image [pull secrets](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/).
-  replicas: 1
+  replicas: 10 # Number of workers
   resources:
     # assuming 8GB RAM per vCPU is enough to fit our largest image plane
     limits:
