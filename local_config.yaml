@@ -14,11 +14,11 @@ scheduler:
   resources:
     # presume half an m5.xlarge or similar (4vCPU,16GiB RAM)
     limits:
-        cpu: 2
-        memory: 8G
+        cpu: 1
+        memory: 2G
     requests:
-        cpu: 2000m
-        memory: 8G
+        cpu: 1000m
+        memory: 2G
   env:
     - name: OMP_NUM_THREADS
       value: "1"
@@ -71,11 +71,11 @@ worker:
   resources:
     # assuming 8GB RAM per vCPU is enough to fit our largest image plane
     limits:
-        cpu: 2
-        memory: 16G
+        cpu: 1
+        memory: 2G
     requests:
-        cpu: 2000m
-        memory: 16G
+        cpu: 1000m
+        memory: 2G
   #mounts: {}
     #volumes:
     #- name: data
@@ -113,10 +113,10 @@ jupyter:
   resources:
     # presume ~quarter of an m5.xlarge or similar (4vCPU,16GiB RAM)
     limits:
-        cpu: 1
+        cpu: 2
         memory: 4G
     requests:
-        cpu: 1000m
+        cpu: 2000m
         memory: 4G
   env:
     - name: OMP_NUM_THREADS
